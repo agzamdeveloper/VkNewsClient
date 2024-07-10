@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VkNewsClient</string>
     <string name="lorem_ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>
+    <string name="navigation_item_home">Главная</string>
+    <string name="navigation_item_favourites">Избранные</string>
+    <string name="navigation_item_profile">Профиль</string>
 </resources>
