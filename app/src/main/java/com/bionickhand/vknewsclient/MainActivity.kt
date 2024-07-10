@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bionickhand.vknewsclient.ui.theme.MainScreen
 import com.bionickhand.vknewsclient.ui.theme.PostCard
 import com.bionickhand.vknewsclient.ui.theme.VkNewsClientTheme
 
@@ -20,14 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VkNewsClientTheme {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(8.dp),
-                ) {
-                    PostCard()
-                }
+                MainScreen()
             }
         }
     }
