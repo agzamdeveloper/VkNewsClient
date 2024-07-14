@@ -16,6 +16,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,7 +28,9 @@ import kotlinx.coroutines.launch
 @Preview
 @Composable
 fun MainScreen() {
-    val snackBarHostState = SnackbarHostState()
+    val snackBarHostState = remember {
+        SnackbarHostState()
+    }
     val scope = rememberCoroutineScope()
     val fabIsVisible = remember {
         mutableStateOf(true)
@@ -59,7 +62,7 @@ fun MainScreen() {
         bottomBar = {
             NavigationBar {
                 val selectedItemPosition = remember {
-                    mutableStateOf(0)
+                    mutableIntStateOf(0)
                 }
                 val items = listOf(
                     NavigationItem.Home,
@@ -68,8 +71,8 @@ fun MainScreen() {
                 )
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
-                        selected = selectedItemPosition.value == index,
-                        onClick = { selectedItemPosition.value = index },
+                        selected = selectedItemPosition.intValue == index,
+                        onClick = { selectedItemPosition.intValue = index },
                         icon = {
                             Icon(item.icon, contentDescription = null)
                         },
