@@ -8,11 +8,20 @@ import com.bionickhand.vknewsclient.domain.StatisticItem
 
 class MainViewModel : ViewModel() {
 
-    private val _feedPost = MutableLiveData(FeedPost())
-    val feedPost : LiveData<FeedPost> = _feedPost
+    private val initialList = mutableListOf<FeedPost>().apply {
+        repeat(100){
+            add(
+                FeedPost(id = it)
+            )
+        }
+    }
 
-    fun changeStatisticItem(item: StatisticItem){
-        val oldStatistics = feedPost.value?.statistics ?: throw IllegalStateException()
+    private val _feedPosts = MutableLiveData<List<FeedPost>>(initialList)
+    val feedPosts : LiveData<List<FeedPost>> = _feedPosts
+
+    fun changeStatisticItem(feedPost: FeedPost, item: StatisticItem){
+        val oldPosts = feedPosts.value?.toMutableList() ?: mutableListOf()
+        val oldStatistics = feedPost.statistics
         val newStatistics = oldStatistics.toMutableList().apply {
             replaceAll {oldItem ->
                 if (oldItem.type == item.type){
@@ -22,7 +31,21 @@ class MainViewModel : ViewModel() {
                 }
             }
         }
-        _feedPost.value = feedPost.value?.copy(statistics = newStatistics)
+        val newFeedPost = feedPost.copy(statistics = newStatistics)
+        _feedPosts.value = oldPosts.apply {
+            replaceAll{
+                if (it.id == newFeedPost.id){
+                    newFeedPost
+                } else{
+                    it
+                }
+            }
+        }
     }
 
+    fun deleteFeedPost(feedPost: FeedPost){
+        val oldPosts = feedPosts.value?.toMutableList() ?: mutableListOf()
+        oldPosts.remove(feedPost)
+        _feedPosts.value = oldPosts
+    }
 }
