@@ -34,10 +34,10 @@ import com.bionickhand.vknewsclient.domain.StatisticType
 fun PostCard(
     modifier: Modifier = Modifier,
     feedPost: FeedPost,
-    onViewsClickListener: (StatisticItem) -> Unit,
-    onCommentsClickListener: (StatisticItem) -> Unit,
-    onSharesClickListener: (StatisticItem) -> Unit,
-    onLikesClickListener: (StatisticItem) -> Unit
+    onViewsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onCommentsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onSharesClickListener: (FeedPost, StatisticItem) -> Unit,
+    onLikesClickListener: (FeedPost, StatisticItem) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -62,7 +62,7 @@ fun PostCard(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Statistics(
-                statistics = feedPost.statistics,
+                feedPost = feedPost,
                 onViewsClickListener = onViewsClickListener,
                 onCommentsClickListener = onCommentsClickListener,
                 onSharesClickListener = onSharesClickListener,
@@ -112,22 +112,22 @@ fun PostHeader(
 
 @Composable
 fun Statistics(
-    statistics: List<StatisticItem>,
-    onViewsClickListener: (StatisticItem) -> Unit,
-    onCommentsClickListener: (StatisticItem) -> Unit,
-    onSharesClickListener: (StatisticItem) -> Unit,
-    onLikesClickListener: (StatisticItem) -> Unit
+    feedPost: FeedPost,
+    onViewsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onCommentsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onSharesClickListener: (FeedPost, StatisticItem) -> Unit,
+    onLikesClickListener: (FeedPost, StatisticItem) -> Unit
 ) {
     Row {
         Row(
             modifier = Modifier.weight(1f)
         ) {
-            val viewsItem = statistics.getItemByType(StatisticType.VIEWS)
+            val viewsItem = feedPost.statistics.getItemByType(StatisticType.VIEWS)
             IconWithText(
                 id = R.drawable.ic_views_count,
                 text = viewsItem.count.toString(),
                 onClickListener = {
-                    onViewsClickListener(viewsItem)
+                    onViewsClickListener(feedPost, viewsItem)
                 }
             )
         }
@@ -135,28 +135,28 @@ fun Statistics(
             modifier = Modifier.weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val sharesItem = statistics.getItemByType(StatisticType.SHARES)
+            val sharesItem = feedPost.statistics.getItemByType(StatisticType.SHARES)
             IconWithText(
                 id = R.drawable.ic_share,
                 text = sharesItem.count.toString(),
                 onClickListener = {
-                    onSharesClickListener(sharesItem)
+                    onSharesClickListener(feedPost, sharesItem)
                 }
             )
-            val commentsItem = statistics.getItemByType(StatisticType.COMMENTS)
+            val commentsItem = feedPost.statistics.getItemByType(StatisticType.COMMENTS)
             IconWithText(
                 id = R.drawable.ic_comment,
                 text = commentsItem.count.toString(),
                 onClickListener = {
-                    onCommentsClickListener(commentsItem)
+                    onCommentsClickListener(feedPost, commentsItem)
                 }
             )
-            val likesItem = statistics.getItemByType(StatisticType.LIKES)
+            val likesItem = feedPost.statistics.getItemByType(StatisticType.LIKES)
             IconWithText(
                 id = R.drawable.ic_like,
                 text = likesItem.count.toString(),
                 onClickListener = {
-                    onLikesClickListener(likesItem)
+                    onLikesClickListener(feedPost, likesItem)
                 }
             )
         }
