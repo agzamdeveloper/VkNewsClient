@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bionickhand.vknewsclient.domain.FeedPost
 import com.bionickhand.vknewsclient.domain.StatisticItem
-import com.bionickhand.vknewsclient.ui.theme.NavigationItem
 
 class MainViewModel : ViewModel() {
 
     private val initialList = mutableListOf<FeedPost>().apply {
-        repeat(100){
+        repeat(100) {
             add(
                 FeedPost(id = it)
             )
@@ -18,40 +17,33 @@ class MainViewModel : ViewModel() {
     }
 
     private val _feedPosts = MutableLiveData<List<FeedPost>>(initialList)
-    val feedPosts : LiveData<List<FeedPost>> = _feedPosts
+    val feedPosts: LiveData<List<FeedPost>> = _feedPosts
 
-    private val _selectedItem = MutableLiveData<NavigationItem>(NavigationItem.Home)
-    val selectedItem: LiveData<NavigationItem> = _selectedItem
-
-    fun changeSelectedItem(item: NavigationItem){
-        _selectedItem.value = item
-    }
-
-    fun changeStatisticItem(feedPost: FeedPost, item: StatisticItem){
+    fun changeStatisticItem(feedPost: FeedPost, item: StatisticItem) {
         val oldPosts = feedPosts.value?.toMutableList() ?: mutableListOf()
         val oldStatistics = feedPost.statistics
         val newStatistics = oldStatistics.toMutableList().apply {
-            replaceAll {oldItem ->
-                if (oldItem.type == item.type){
+            replaceAll { oldItem ->
+                if (oldItem.type == item.type) {
                     oldItem.copy(count = oldItem.count + 1)
-                } else{
+                } else {
                     oldItem
                 }
             }
         }
         val newFeedPost = feedPost.copy(statistics = newStatistics)
         _feedPosts.value = oldPosts.apply {
-            replaceAll{
-                if (it.id == newFeedPost.id){
+            replaceAll {
+                if (it.id == newFeedPost.id) {
                     newFeedPost
-                } else{
+                } else {
                     it
                 }
             }
         }
     }
 
-    fun deleteFeedPost(feedPost: FeedPost){
+    fun deleteFeedPost(feedPost: FeedPost) {
         val oldPosts = feedPosts.value?.toMutableList() ?: mutableListOf()
         oldPosts.remove(feedPost)
         _feedPosts.value = oldPosts

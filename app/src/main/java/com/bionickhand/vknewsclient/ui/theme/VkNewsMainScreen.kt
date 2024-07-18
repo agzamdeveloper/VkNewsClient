@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.bionickhand.vknewsclient.MainViewModel
 import com.bionickhand.vknewsclient.navigation.AppNavigation
+import com.bionickhand.vknewsclient.navigation.Screen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -41,7 +42,15 @@ fun MainScreen(
                 items.forEach { item ->
                     NavigationBarItem(
                         selected = currentRoute == item.screen.route,
-                        onClick = { navHostController.navigate(item.screen.route) },
+                        onClick = {
+                            navHostController.navigate(item.screen.route) {
+                                popUpTo(Screen.FeedScreen.route) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
                         icon = {
                             Icon(item.icon, contentDescription = null)
                         },
@@ -80,12 +89,12 @@ fun MainScreen(
 @Composable
 fun ClickableText(
     text: String
-){
-    var count by remember {
+) {
+    var count by rememberSaveable {
         mutableIntStateOf(0)
     }
     Text(
-        modifier = Modifier.clickable { 
+        modifier = Modifier.clickable {
             count++
         },
         text = "$text count: $count"
