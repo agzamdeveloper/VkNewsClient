@@ -11,23 +11,28 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.bionickhand.vknewsclient.MainViewModel
+import com.bionickhand.vknewsclient.navigation.AppNavigation
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
     viewModel: MainViewModel
 ) {
-    val selectedItemState by viewModel.selectedItem.observeAsState()
+
+    val navHostController = rememberNavController()
     Scaffold(
         bottomBar = {
             NavigationBar {
+                val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
                 val items = listOf(
                     NavigationItem.Home,
                     NavigationItem.Favourites,
@@ -35,8 +40,8 @@ fun MainScreen(
                 )
                 items.forEach { item ->
                     NavigationBarItem(
-                        selected = item == selectedItemState,
-                        onClick = { viewModel.changeSelectedItem(item) },
+                        selected = currentRoute == item.screen.route,
+                        onClick = { navHostController.navigate(item.screen.route) },
                         icon = {
                             Icon(item.icon, contentDescription = null)
                         },
@@ -57,14 +62,18 @@ fun MainScreen(
             }
         }
     ) {
-        when (selectedItemState) {
-            NavigationItem.Home -> {
+        AppNavigation(
+            navController = navHostController,
+            homeScreenContent = {
                 HomeScreen(viewModel = viewModel)
+            },
+            favoriteScreenContent = {
+                ClickableText(text = "Favorites")
+            },
+            profileScreenContent = {
+                ClickableText(text = "Profiles")
             }
-            NavigationItem.Favourites -> ClickableText(text = "Favorites")
-            NavigationItem.Profiles -> ClickableText(text = "Profiles")
-            null -> TODO()
-        }
+        )
     }
 }
 
