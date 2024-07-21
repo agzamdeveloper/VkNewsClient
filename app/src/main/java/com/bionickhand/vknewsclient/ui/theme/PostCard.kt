@@ -35,7 +35,7 @@ fun PostCard(
     modifier: Modifier = Modifier,
     feedPost: FeedPost,
     onViewsClickListener: (FeedPost, StatisticItem) -> Unit,
-    onCommentsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onCommentsClickListener: () -> Unit,
     onSharesClickListener: (FeedPost, StatisticItem) -> Unit,
     onLikesClickListener: (FeedPost, StatisticItem) -> Unit
 ) {
@@ -114,7 +114,7 @@ fun PostHeader(
 fun Statistics(
     feedPost: FeedPost,
     onViewsClickListener: (FeedPost, StatisticItem) -> Unit,
-    onCommentsClickListener: (FeedPost, StatisticItem) -> Unit,
+    onCommentsClickListener: () -> Unit,
     onSharesClickListener: (FeedPost, StatisticItem) -> Unit,
     onLikesClickListener: (FeedPost, StatisticItem) -> Unit
 ) {
@@ -148,7 +148,7 @@ fun Statistics(
                 id = R.drawable.ic_comment,
                 text = commentsItem.count.toString(),
                 onClickListener = {
-                    onCommentsClickListener(feedPost, commentsItem)
+                    onCommentsClickListener()
                 }
             )
             val likesItem = feedPost.statistics.getItemByType(StatisticType.LIKES)

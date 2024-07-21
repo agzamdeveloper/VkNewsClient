@@ -34,7 +34,8 @@ import com.bionickhand.vknewsclient.domain.FeedPost
 @Composable
 fun CommentScreen(
     feedPost: FeedPost,
-    comments: List<CommentPost>
+    comments: List<CommentPost>,
+    onBackPressed: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -43,7 +44,9 @@ fun CommentScreen(
                     Text(text = "Comment for FeedPost: ${feedPost.id}")
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {
+                      onBackPressed()
+                    }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = null)
                     }
                 }
