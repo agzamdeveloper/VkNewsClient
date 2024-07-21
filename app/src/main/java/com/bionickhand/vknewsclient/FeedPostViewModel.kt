@@ -3,19 +3,11 @@ package com.bionickhand.vknewsclient
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bionickhand.vknewsclient.domain.CommentPost
 import com.bionickhand.vknewsclient.domain.FeedPost
 import com.bionickhand.vknewsclient.domain.StatisticItem
-import com.bionickhand.vknewsclient.ui.theme.HomeScreenState
+import com.bionickhand.vknewsclient.ui.theme.PostScreenState
 
-class MainViewModel : ViewModel() {
-    private val comments = mutableListOf<CommentPost>().apply {
-        repeat(10){
-            add(
-                CommentPost(id = it)
-            )
-        }
-    }
+class FeedPostViewModel : ViewModel() {
 
     private val initialList = mutableListOf<FeedPost>().apply {
         repeat(100) {
@@ -24,25 +16,14 @@ class MainViewModel : ViewModel() {
             )
         }
     }
-    private val initialState = HomeScreenState.FeedPostsState(initialList)
+    private val initialState = PostScreenState.PostsState(initialList)
 
-    private val _screenState = MutableLiveData<HomeScreenState>(initialState)
-    val screenState: LiveData<HomeScreenState> = _screenState
-
-    private var savedState: HomeScreenState? = HomeScreenState.Initial
-
-    fun showComments(feedPost: FeedPost){
-        savedState = _screenState.value
-        _screenState.value = HomeScreenState.CommentsState(feedPost, comments)
-    }
-
-    fun closeComments(){
-        _screenState.value = savedState
-    }
+    private val _screenState = MutableLiveData<PostScreenState>(initialState)
+    val screenState: LiveData<PostScreenState> = _screenState
 
     fun changeStatisticItem(feedPost: FeedPost, item: StatisticItem) {
         val currentState = screenState.value
-        if (currentState !is HomeScreenState.FeedPostsState) return
+        if (currentState !is PostScreenState.PostsState) return
 
         val oldPosts = currentState.posts.toMutableList()
         val oldStatistics = feedPost.statistics
@@ -65,15 +46,15 @@ class MainViewModel : ViewModel() {
                 }
             }
         }
-        _screenState.value = HomeScreenState.FeedPostsState(newPosts)
+        _screenState.value = PostScreenState.PostsState(newPosts)
     }
 
     fun deleteFeedPost(feedPost: FeedPost) {
         val currentState = screenState.value
-        if (currentState !is HomeScreenState.FeedPostsState) return
+        if (currentState !is PostScreenState.PostsState) return
 
         val oldPosts = currentState.posts.toMutableList()
         oldPosts.remove(feedPost)
-        _screenState.value = HomeScreenState.FeedPostsState(oldPosts)
+        _screenState.value = PostScreenState.PostsState(oldPosts)
     }
 }

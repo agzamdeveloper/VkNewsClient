@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.compose.livedata)
     implementation(libs.compose.navigation)
+    implementation(libs.compose.viewModel)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
