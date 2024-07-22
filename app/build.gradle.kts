@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(libs.compose.viewModel)
     implementation(libs.gson)
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
