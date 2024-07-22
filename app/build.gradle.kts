@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.compose.livedata)
     implementation(libs.compose.navigation)
     implementation(libs.compose.viewModel)
+    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
