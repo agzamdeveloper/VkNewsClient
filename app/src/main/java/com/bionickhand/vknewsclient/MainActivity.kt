@@ -6,7 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bionickhand.vknewsclient.ui.theme.ActivityResultTest
+import com.bionickhand.vknewsclient.ui.theme.AuthState
+import com.bionickhand.vknewsclient.ui.theme.LoginScreen
 import com.bionickhand.vknewsclient.ui.theme.MainScreen
 import com.bionickhand.vknewsclient.ui.theme.VkNewsClientTheme
 import com.vk.api.sdk.VK
@@ -19,23 +23,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             VkNewsClientTheme {
+                val viewModel: MainViewModel = viewModel()
+                val authState = viewModel.authState.observeAsState(AuthState.Initial)
+
                 val launcher = rememberLauncherForActivityResult(
                     contract = VK.getVKAuthActivityResultContract()
                 ) {
-                    when (it) {
-                        is VKAuthenticationResult.Success -> {
-                            Log.d("MainActivity", "success auth")
-                        }
-                        is VKAuthenticationResult.Failed -> {
-                            Log.d("MainActivity", "failed auth")
-                        }
-                    }
-                }
-                SideEffect {
-                    launcher.launch(listOf(VKScope.WALL))
+                    viewModel.performAuthResult(it)
                 }
 
-                MainScreen()
+                when(authState.value){
+                    is AuthState.Authorized -> {
+                        MainScreen()
+                    }
+                    is AuthState.NotAuthorized -> {
+                        LoginScreen {
+                            launcher.launch(listOf(VKScope.WALL))
+                        }
+                    }
+                    else -> {}
+                }
             }
         }
     }
