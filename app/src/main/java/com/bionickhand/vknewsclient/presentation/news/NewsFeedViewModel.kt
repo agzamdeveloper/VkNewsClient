@@ -1,13 +1,12 @@
-package com.bionickhand.vknewsclient
+package com.bionickhand.vknewsclient.presentation.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bionickhand.vknewsclient.domain.FeedPost
 import com.bionickhand.vknewsclient.domain.StatisticItem
-import com.bionickhand.vknewsclient.ui.theme.PostScreenState
 
-class FeedPostViewModel : ViewModel() {
+class NewsFeedViewModel : ViewModel() {
 
     private val initialList = mutableListOf<FeedPost>().apply {
         repeat(100) {
@@ -16,14 +15,14 @@ class FeedPostViewModel : ViewModel() {
             )
         }
     }
-    private val initialState = PostScreenState.PostsState(initialList)
+    private val initialState = NewsFeedScreenState.PostsState(initialList)
 
-    private val _screenState = MutableLiveData<PostScreenState>(initialState)
-    val screenState: LiveData<PostScreenState> = _screenState
+    private val _screenState = MutableLiveData<NewsFeedScreenState>(initialState)
+    val screenState: LiveData<NewsFeedScreenState> = _screenState
 
     fun changeStatisticItem(feedPost: FeedPost, item: StatisticItem) {
         val currentState = screenState.value
-        if (currentState !is PostScreenState.PostsState) return
+        if (currentState !is NewsFeedScreenState.PostsState) return
 
         val oldPosts = currentState.posts.toMutableList()
         val oldStatistics = feedPost.statistics
@@ -46,15 +45,15 @@ class FeedPostViewModel : ViewModel() {
                 }
             }
         }
-        _screenState.value = PostScreenState.PostsState(newPosts)
+        _screenState.value = NewsFeedScreenState.PostsState(newPosts)
     }
 
     fun deleteFeedPost(feedPost: FeedPost) {
         val currentState = screenState.value
-        if (currentState !is PostScreenState.PostsState) return
+        if (currentState !is NewsFeedScreenState.PostsState) return
 
         val oldPosts = currentState.posts.toMutableList()
         oldPosts.remove(feedPost)
-        _screenState.value = PostScreenState.PostsState(oldPosts)
+        _screenState.value = NewsFeedScreenState.PostsState(oldPosts)
     }
 }

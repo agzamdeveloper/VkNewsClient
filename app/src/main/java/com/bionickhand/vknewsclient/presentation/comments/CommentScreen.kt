@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.presentation.comments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -29,10 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bionickhand.vknewsclient.CommentsViewModel
-import com.bionickhand.vknewsclient.CommentsViewModelFactory
 import com.bionickhand.vknewsclient.domain.CommentPost
 import com.bionickhand.vknewsclient.domain.FeedPost
+import com.bionickhand.vknewsclient.ui.theme.VkNewsClientTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

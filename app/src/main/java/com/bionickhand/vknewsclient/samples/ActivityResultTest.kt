@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.samples
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
