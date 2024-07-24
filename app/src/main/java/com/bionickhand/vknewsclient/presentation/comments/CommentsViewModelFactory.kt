@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient
+package com.bionickhand.vknewsclient.presentation.comments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,11 +1,10 @@
-package com.bionickhand.vknewsclient
+package com.bionickhand.vknewsclient.presentation.comments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bionickhand.vknewsclient.domain.CommentPost
 import com.bionickhand.vknewsclient.domain.FeedPost
-import com.bionickhand.vknewsclient.ui.theme.CommentsScreenState
 
 class CommentsViewModel(
     feedPost: FeedPost

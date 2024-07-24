@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.presentation.news
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

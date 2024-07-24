@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.presentation.main
 
 sealed class AuthState {
     data object Initial: AuthState()

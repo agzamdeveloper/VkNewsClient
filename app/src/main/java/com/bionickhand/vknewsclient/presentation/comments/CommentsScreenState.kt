@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.presentation.comments
 
 import com.bionickhand.vknewsclient.domain.CommentPost
 import com.bionickhand.vknewsclient.domain.FeedPost

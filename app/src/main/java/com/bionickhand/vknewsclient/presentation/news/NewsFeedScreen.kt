@@ -1,4 +1,4 @@
-package com.bionickhand.vknewsclient.ui.theme
+package com.bionickhand.vknewsclient.presentation.news
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -14,17 +14,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bionickhand.vknewsclient.FeedPostViewModel
 import com.bionickhand.vknewsclient.domain.FeedPost
 
 @Composable
-fun HomeScreen(
+fun NewsFeedScreen(
     onCommentsClickListener: (FeedPost) -> Unit
 ) {
-    val viewModel: FeedPostViewModel = viewModel()
-    val screenState = viewModel.screenState.observeAsState(PostScreenState.Initial)
+    val viewModel: NewsFeedViewModel = viewModel()
+    val screenState = viewModel.screenState.observeAsState(NewsFeedScreenState.Initial)
     when (val currentState = screenState.value) {
-        is PostScreenState.PostsState -> {
+        is NewsFeedScreenState.PostsState -> {
             FeedPosts(
                 viewModel = viewModel,
                 posts = currentState.posts,
@@ -32,14 +31,14 @@ fun HomeScreen(
             )
         }
 
-        PostScreenState.Initial -> {}
+        NewsFeedScreenState.Initial -> {}
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun FeedPosts(
-    viewModel: FeedPostViewModel,
+    viewModel: NewsFeedViewModel,
     posts: List<FeedPost>,
     onCommentsClickListener: (FeedPost) -> Unit
 ) {
