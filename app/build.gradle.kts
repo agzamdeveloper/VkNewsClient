@@ -64,6 +64,8 @@ dependencies {
     implementation(libs.compose.viewModel)
     implementation(libs.gson)
     implementation(libs.coil)
+    implementation(libs.vk.core)
+    implementation(libs.vk.api)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
