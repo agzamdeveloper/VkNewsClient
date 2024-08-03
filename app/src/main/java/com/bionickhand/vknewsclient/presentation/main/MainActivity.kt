@@ -29,11 +29,13 @@ class MainActivity : ComponentActivity() {
                     is AuthState.Authorized -> {
                         MainScreen()
                     }
+
                     is AuthState.NotAuthorized -> {
                         LoginScreen {
-                            launcher.launch(listOf(VKScope.WALL))
+                            launcher.launch(listOf(VKScope.WALL, VKScope.FRIENDS))
                         }
                     }
+
                     else -> {}
                 }
             }

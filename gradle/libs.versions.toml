@@ -1,19 +1,22 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.1"
 kotlin = "1.9.0"
-coreKtx = "1.10.1"
+coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2024.04.01"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.1"
+composeBom = "2024.06.00"
 runtimeLivedata = "1.6.8"
 nav_version = "2.7.7"
-viewModel_compose = "2.6.1"
+viewModel_compose = "2.8.4"
 gson_version = "2.11.0"
-coil_version = "2.1.0"
-vk_version = "4.0.1"
+coil_version = "2.7.0"
+vk_version = "4.1.0"
+vk_id = "2.0.1"
+retrofit2_version = "2.11.0"
+okhttp3_version = "4.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,6 +40,10 @@ gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson_versi
 coil = {group = "io.coil-kt", name = "coil-compose", version.ref = "coil_version"}
 vk-core = {group = "com.vk", name = "android-sdk-core", version.ref = "vk_version"}
 vk-api = {group = "com.vk", name = "android-sdk-api", version.ref = "vk_version"}
+vk-id = {group = "com.vk.id", name = "vkid", version.ref = "vk_id"}
+retrofit2 = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2_version"}
+okhttp3 = {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3_version"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

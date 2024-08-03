@@ -18,6 +18,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+//        addManifestPlaceholders(
+//            mapOf(
+//                "VKIDClientID" to "52053645", // ID вашего приложения (app_id).
+//                "VKIDClientSecret" to "ux9XqnuolLs0IS324WDA", // Ваш защищенный ключ (client_secret).
+//                "VKIDRedirectHost" to "vk.com", // Обычно используется vk.com.
+//                "VKIDRedirectScheme" to "vk52053645", // Обычно используется vk{ID приложения}.
+//            )
+//        )
     }
 
     buildTypes {
@@ -66,6 +74,9 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.vk.core)
     implementation(libs.vk.api)
+//    implementation(libs.vk.id)
+    implementation(libs.retrofit2)
+    implementation(libs.okhttp3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
