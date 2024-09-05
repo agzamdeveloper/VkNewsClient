@@ -74,7 +74,9 @@ fun FeedPosts(
                         onCommentsClickListener = {
                             onCommentsClickListener(feedPost)
                         },
-                        onLikesClickListener = viewModel::changeStatisticItem
+                        onLikesClickListener = { feedPost, _ ->
+                            viewModel.changeLikeStatus(feedPost)
+                        }
                     )
                 }
             )
