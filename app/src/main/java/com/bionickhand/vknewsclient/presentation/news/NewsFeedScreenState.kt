@@ -5,6 +5,8 @@ import com.bionickhand.vknewsclient.domain.FeedPost
 sealed class NewsFeedScreenState {
     data object Initial: NewsFeedScreenState()
 
+    data object Loading: NewsFeedScreenState()
+
     data class PostsState(
         val posts: List<FeedPost>,
         val nextDataIsLoading: Boolean = false
