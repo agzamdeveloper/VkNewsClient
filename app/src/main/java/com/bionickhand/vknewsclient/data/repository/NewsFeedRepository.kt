@@ -3,6 +3,7 @@ package com.bionickhand.vknewsclient.data.repository
 import android.app.Application
 import com.bionickhand.vknewsclient.data.mapper.NewsFeedMapper
 import com.bionickhand.vknewsclient.data.network.ApiFactory
+import com.bionickhand.vknewsclient.domain.CommentPost
 import com.bionickhand.vknewsclient.domain.FeedPost
 import com.bionickhand.vknewsclient.domain.StatisticItem
 import com.bionickhand.vknewsclient.domain.StatisticType
@@ -48,6 +49,15 @@ class NewsFeedRepository(application: Application) {
             postId = feedPost.id
         )
         _feedPosts.remove(feedPost)
+    }
+
+    suspend fun getComments(feedPost: FeedPost): List<CommentPost>{
+        val comments = apiService.getComments(
+            token = getAccessToken(),
+            ownerId = feedPost.communityId,
+            postId = feedPost.id
+        )
+        return mapper.mapResponseToComments(comments)
     }
 
     suspend fun changeLikeStatus(feedPost: FeedPost){
